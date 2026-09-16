@@ -28,13 +28,14 @@ canvas.style.zIndex = '-1'; // Ensure the canvas is behind the input box
 
 document.body.appendChild(canvas);
 
-let inputBox = document.createElement('input');
-inputBox.type = 'text';
+let inputBox = document.createElement('textarea');
+//inputBox.type = 'text';
 inputBox.id = 'input-box';
 inputBox.style.position = 'absolute';
 inputBox.style.left = inputLocationX + 'px';
 inputBox.style.top = '30px';
-inputBox.style.width = '400px';
+inputBox.rows = 30;
+inputBox.cols = 40;
 
 document.body.appendChild(inputBox);
 
