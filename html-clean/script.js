@@ -9,7 +9,7 @@ let newTextarea = document.createElement("textarea");
 
 // Configure its attributes
 newTextarea.name = "codeInput";
-newTextarea.rows = 5;
+newTextarea.rows = 30;
 newTextarea.cols = 40;
 newTextarea.placeholder = "Enter your prompt here and hit enter";
 newTextarea.className = "code-textarea";
@@ -33,7 +33,7 @@ inputBox.type = 'text';
 inputBox.id = 'input-box';
 inputBox.style.position = 'absolute';
 inputBox.style.left = inputLocationX + 'px';
-inputBox.style.top = inputLocationY + 'px';
+inputBox.style.top = '30px';
 inputBox.style.width = '400px';
 
 document.body.appendChild(inputBox);
