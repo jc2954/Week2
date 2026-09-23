@@ -3,7 +3,10 @@ let inputLocationY = window.innerHeight / 2;
 let inputBoxDirectionX = 1;
 let inputBoxDirectionY = 1;
 let inputBoxSpeed = 2;
+let generatetype = "generatetext";
 
+
+/*
 
 let newTextarea = document.createElement("textarea");
 
@@ -38,6 +41,12 @@ inputBox.rows = 30;
 inputBox.cols = 40;
 
 document.body.appendChild(inputBox);
+*/
+modeloptions = document.getElementById('modeloptions');
+modeloptions.addEventListener("change", function () {
+    generatetype = modeloptions.value;
+    console.log(generatetype);
+})
 
 function updateInputBoxPosition() {
     const inputBox = document.getElementById('input-box');
@@ -53,28 +62,28 @@ function updateInputBoxPosition() {
     if (inputLocationY <= 0 || inputLocationY + inputBox.offsetHeight >= window.innerHeight) {
         inputBoxDirectionY *= -1; // Reverse direction on Y-axis
     }
-      inputBox.style.left = inputLocationX + 'px';
+    inputBox.style.left = inputLocationX + 'px';
     inputBox.style.top = inputLocationY + 'px';
 }
-
+newTextarea = document.getElementById('input-box')
 
 //setInterval(updateInputBoxPosition, 16); // Update position every 16ms (approximately 60fps)
-async function askAI(){
+async function askAI() {
     const userInput = newTextarea.value;
-    const url="https://itp-ima-replicate-proxy.web.app/api/create_n_get";
+    const url = "https://itp-ima-replicate-proxy.web.app/api/create_n_get";
     let authToken = "";
     let prompt = userInput;
 
     const data = {
         model: "anthropic/claude-sonnet-5",
         input: {
-        prompt: prompt,
-        max_tokens: 1024
- 
+            prompt: prompt,
+            max_tokens: 1024
+
         }
     };
-console.log("Sending request to AI model with prompt:", prompt);
-const options ={
+    console.log("Sending request to AI model with prompt:", prompt);
+    const options = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -90,18 +99,62 @@ const options ={
         console.error("AI request failed:", raw_response.status, json_response);
         return;
     }
-    console.log("Received response from AI model:", json_response); 
+    console.log("Received response from AI model:", json_response);
     let parsedResponse = json_response.output.join("");
     if (parsedResponse) {
-      inputBox.value = parsedResponse;
+        document.getElementById('output-box').innerHTML = marked.parse(parsedResponse);
     }
     console.log(parsedResponse);
 }
-newTextarea.addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') {
-        event.preventDefault(); // Prevent the default action of the Enter key
+submitbutton = document.getElementById('submit');
+submitbutton.addEventListener('click', function () {
+    if (generatetype == 'generatetext') {
         askAI();
     }
-})
+    else {
+        askAIImage();
+    }
+}
+)
 
 
+async function askAIImage() {
+
+    const userInput = newTextarea.value;
+    const url = "https://itp-ima-replicate-proxy.web.app/api/create_n_get";
+    let authToken = "";
+    let prompt = userInput;
+
+    const data = {
+        model: "google/nano-banana-pro",
+        input: {
+            prompt: prompt,
+            output_format: "png"
+        }
+    };
+    console.log("Sending request to AI model with prompt:", prompt);
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    };
+    if (authToken) {
+        options.headers.Authorization = `Bearer ${authToken}`;
+    }
+    const raw_response = await fetch(url, options);
+    const json_response = await raw_response.json();
+    if (!raw_response.ok) {
+        console.error("AI request failed:", raw_response.status, json_response);
+        return;
+    }
+    console.log("Received response from AI model:", json_response);
+    const imageUrl = json_response.output;
+    console.log(imageUrl);
+    if (imageUrl) {
+
+        document.getElementById('output-box').innerHTML = `<img src="${imageUrl}" alt="Generated Image" style="max-width: 100%; height: auto; border-radius: 8px;">`;
+    }
+
+}

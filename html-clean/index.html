@@ -1,12 +1,36 @@
 <!DOCTYPE html>
 <html>
+<link rel="stylesheet" href="style.css">
 
 <head>
-    <title>Stream of Consciousneses</title>
+  <title>Stream of Consciousneses</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 
 <body>
-    <script src="script.js"></script>
+  <h1>Generate Tool</h1>
+  <div class="container">
+
+    <div class="half">
+      <h2>Your input</h2>
+      <textarea id="input-box" rows="4" cols="50" name="codeInput"></textarea>
+      <select name="modeloptions" id="modeloptions">
+        <option value="generatetext">Generate Text</option>
+        <option value="generateimage">Generate Image</option>
+
+      </select>
+      <button name="submit" id="submit" class="submit-button">Submit</button>
+
+    </div>
+    <div class="half half-right">
+      <h2>Output</h2>
+      <div id="output-box"></div>
+
+    </div>
+
+
+  </div>
 </body>
+<script src="script.js"></script>
 
 </html>

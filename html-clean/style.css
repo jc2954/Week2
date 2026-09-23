@@ -1,0 +1,60 @@
+.half {
+    width: 50%;
+    height: 100vh;
+    float: left;
+}
+
+.submit-button {
+    margin-top: 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* Ensure body takes full height for sticky footer */
+    margin: 0;
+    /* Remove default body margin */
+    font-family: 'Arial', sans-serif;
+    /* Optional: set a default font */
+    font-size: 16px;
+}
+
+
+#output-box {
+    /*padding: 20px;
+    margin-left: 30px;*/
+
+}
+
+h1 {
+    margin-left: 20px;
+    text-align: center;
+}
+
+#input-box {
+    width: 100%;
+    /* Make the textarea fill its container */
+    box-sizing: border-box;
+    /* Include padding and border in the element's total width and height */
+    padding: 10px;
+    /* Add some internal spacing */
+
+    /* Space between textarea and button */
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    padding: 10px;
+    margin: 20px;
+
+}
+
+.half-right {
+    margin-left: 30px;
+}
